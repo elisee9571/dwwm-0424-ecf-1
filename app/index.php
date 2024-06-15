@@ -12,6 +12,9 @@ $routes = [
     '/add-item-to-cart' => 'Controller\CartController::addItemToCart',
     '/remove-item-to-cart' => 'Controller\CartController::removeItemToCart',
     '/update-item-to-cart' => 'Controller\CartController::updateItemToCart',
+    '/order' => 'Controller\OrderController::order',
+    '/orders' => 'Controller\OrderController::orders',
+    '/order/success' => 'Controller\OrderController::success',
 ];
 
 $router = new Router;

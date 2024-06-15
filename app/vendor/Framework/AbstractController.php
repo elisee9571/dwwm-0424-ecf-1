@@ -4,9 +4,9 @@ include_once __DIR__ . '/../Templating/Compiler.php';
 
 abstract class AbstractController
 {
-    public function render($template, $data = []): void
+    public function render($template, $data = [])
     {
         $compiler = new Compiler;
-        $compiler->render($template, $data);
+        return $compiler->render($template, $data);
     }
 }

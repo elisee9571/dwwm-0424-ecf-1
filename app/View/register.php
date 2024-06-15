@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +28,7 @@ session_start();
         <!-- Form -->
         <form method="post">
             <div class="d-flex gap-2 mb-3">
-                <input type="text" name="name" class="form-control" placeholder="Name" required>
+                <input type="text" name="lastname" class="form-control" placeholder="Lastname" required>
 
                 <input type="text" name="firstname" class="form-control" placeholder="Firstname" required>
             </div>
@@ -45,15 +41,7 @@ session_start();
             <button type="submit" class="btn btn-lg btn-primary w-100">Create an account</button>
         </form>
 
-        <!-- Footer -->
-        <footer class="mt-auto">
-            <div class="nav mb-4">
-                <a class="nav-link text-decoration-underline p-0" href="#">Need help?</a>
-            </div>
-            <p class="fs-xs mb-0">
-                © All rights reserved. Made by M2I Formation
-            </p>
-        </footer>
+        <?php require('component/_footer.php') ?>
     </div>
 </main>
 </body>

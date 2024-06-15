@@ -29,7 +29,7 @@ class UserController extends \AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user->setEmail($request['email']);
-            $user->setName($request['name']);
+            $user->setLastname($request['lastname']);
             $user->setFirstname($request['firstname']);
             $user->setPassword($request['password']);
 
@@ -47,10 +47,15 @@ class UserController extends \AbstractController
     public function login(): string
     {
         $user = new User();
+        $request = [];
+
+        foreach ($_REQUEST as $property => $value) {
+            $request[htmlspecialchars(strip_tags(trim($property)))] = htmlspecialchars(strip_tags(trim($value)));
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $user->setEmail($_POST['email']);
-            $user->setPassword($_POST['password']);
+            $user->setEmail($request['email']);
+            $user->setPassword($request['password']);
 
             if ($this->userService->login($user)) {
                 header('Location: /');
@@ -63,9 +68,9 @@ class UserController extends \AbstractController
         return $this->render('login');
     }
 
-    public function logout()
+    public function logout(): void
     {
-        $_SESSION['user'] = null;
+        unset($_SESSION['user']);
         header('Location: /login');
         exit;
     }

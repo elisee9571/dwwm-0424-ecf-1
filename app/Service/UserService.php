@@ -22,18 +22,18 @@ class UserService
     public function register(User $user)
     {
         try {
-            $query = 'INSERT INTO users (email, firstname, name, password) VALUES (:email, :firstname, :name, :password)';
+            $query = 'INSERT INTO users (email, firstname, lastname, password) VALUES (:email, :firstname, :lastname, :password)';
 
             $stmt = $this->pdo->prepare($query);
 
             $email = $user->getEmail();
             $firstname = $user->getFirstname();
-            $name = $user->getName();
+            $lastname = $user->getLastname();
             $password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
 
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':firstname', $firstname);
-            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':lastname', $lastname);
             $stmt->bindParam(':password', $password);
 
             if ($stmt->execute()) {
@@ -61,6 +61,7 @@ class UserService
             $logger = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($logger && password_verify($user->getPassword(), $logger['password'])) {
+                /* @info fail of security but password in session */
                 $_SESSION['user'] = $logger;
                 return true;
             }

@@ -39,4 +39,13 @@ class ProductRepository
 
         return $products;
     }
+
+    function findWhereInCart($cart): false|array
+    {
+        $product_ids = array_keys($cart);
+        $placeholders = implode(',', array_fill(0, count($product_ids), '?'));
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders)");
+        $stmt->execute($product_ids);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

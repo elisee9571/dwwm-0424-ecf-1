@@ -7,7 +7,7 @@ class User
     private int $id;
     private string $email;
     private string $firstname;
-    private string $name;
+    private string $lastname;
     private string $password;
 
     public function getId(): int
@@ -34,7 +34,7 @@ class User
 
     public function getFullName(): string
     {
-        return $this->name . ' ' . $this->firstname;
+        return $this->lastname . ' ' . $this->firstname;
     }
 
     public function getFirstname(): string
@@ -48,14 +48,14 @@ class User
         return $this;
     }
 
-    public function getName(): string
+    public function getLastname(): string
     {
-        return $this->name;
+        return $this->lastname;
     }
 
-    public function setName($name): User
+    public function setLastname($lastname): User
     {
-        $this->name = $name;
+        $this->lastname = $lastname;
         return $this;
     }
 

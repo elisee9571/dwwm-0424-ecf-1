@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Liste des produits</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -9,7 +9,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<?php require('component/header.php') ?>
+<?php require('component/_header.php') ?>
 
 <main class="content-wrapper">
 
@@ -134,8 +134,8 @@
             <!-- Product grid -->
             <div class="col-lg-9">
                 <div class="row row-cols-2 row-cols-md-3 g-4 pb-3 mb-3">
-                    <?php if (!empty($products)): ?>
-                        <?php foreach ($products as $product): ?>
+                    <?php if (isset($data['products'])): ?>
+                        <?php foreach ($data['products'] as $product): ?>
                             <!-- Items -->
                             <div class="col">
                                 <div class="card rounded">
@@ -162,6 +162,5 @@
         </div>
     </section>
 </main>
-
 </body>
 </html>
