@@ -9,12 +9,12 @@ include_once __DIR__ . '/../Repository/ProductRepository.php';
 
 class AppController extends \AbstractController
 {
-    public function home(): string
+    public function home(): void
     {
         $productRepository = new ProductRepository();
         $products = $productRepository->findAll();
 
-        return $this->render('home', [
+        $this->render('home', [
             'products' => $products
         ]);
     }

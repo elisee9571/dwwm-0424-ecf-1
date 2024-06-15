@@ -65,9 +65,7 @@ class UserController extends \AbstractController
 
     public function logout()
     {
-        session_start();
-        session_unset();
-        session_destroy();
+        $_SESSION['user'] = null;
         header('Location: /login');
         exit;
     }

@@ -61,8 +61,6 @@ class UserService
             $logger = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($logger && password_verify($user->getPassword(), $logger['password'])) {
-                /* @todo review implement */
-                session_start();
                 $_SESSION['user'] = $logger;
                 return true;
             }

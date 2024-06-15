@@ -9,42 +9,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
-<nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">E-commerce</a>
-        <ul class="nav gap-2">
-            [[ if session.user ]]
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/cart">Cart</a>
-                </li>
-
-                <div class="dropdown dropdown-profile">
-                    <button class="btn btn-outline-white dropdown-toggle rounded-1 text-muted" type="button"
-                            id="dropdown-menu-profile" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span>[[session.user]]</span>
-                    </button>
-                    <ul class="dropdown-menu rounded-1" aria-labelledby="dropdown-menu-profile">
-                        <li>
-                            <a class="dropdown-item" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            [[ else ]]
-                <li class="nav-item">
-                    <a href="/login" class="btn btn-primary">Sign in</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/register" class="btn btn-outline-secondary">Register</a>
-                </li>
-            [[ endif ]]
-        </ul>
-    </div>
-</nav>
+<?php require('component/header.php') ?>
 
 <main class="content-wrapper">
 
@@ -169,25 +134,29 @@
             <!-- Product grid -->
             <div class="col-lg-9">
                 <div class="row row-cols-2 row-cols-md-3 g-4 pb-3 mb-3">
-                    [[ for product in products ]]
-                    <!-- Items -->
-                    <div class="col">
-                        <div class="card rounded">
-                            <img class="card-img-top"
-                                 src="https://www.soon7.net/wp-content/uploads/2017/10/placeholder-1.png">
-                            <div class=" px-1 pb-2 px-sm-3 pb-sm-3">
-                                <h6 class="py-4">[[product.name]]</h6>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="h5 lh-1 mb-0">[[product.price]]€</div>
-                                    <form method="post" action="/add-item-to-cart">
-                                        <input type="hidden" name="product_id" value="[[product.id]]">
-                                        <button class="btn btn-danger" type="submit">Ajouter au panier</button>
-                                    </form>
+                    <?php if (!empty($products)): ?>
+                        <?php foreach ($products as $product): ?>
+                            <!-- Items -->
+                            <div class="col">
+                                <div class="card rounded">
+                                    <img class="card-img-top"
+                                         src="https://www.soon7.net/wp-content/uploads/2017/10/placeholder-1.png">
+                                    <div class=" px-1 pb-2 px-sm-3 pb-sm-3">
+                                        <h6 class="py-4"><?= $product->getName() ?></h6>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="h5 lh-1 mb-0"><?= $product->getPrice() ?>€</div>
+                                            <form method="post" action="/add-item-to-cart">
+                                                <input type="hidden" name="product_id" value="<?= $product->getId() ?>">
+                                                <button class="btn btn-danger" type="submit">Ajouter au panier</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    [[ endfor ]]
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <li>Aucun produit trouvé.</li>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
