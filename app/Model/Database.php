@@ -3,26 +3,33 @@
 namespace Model;
 
 use PDO;
-use PDOException;
 
 class Database
 {
-    private $dsn = 'mysql:host=mysql;dbname=database';
-    private $username = 'root';
-    private $password = 'paris';
+    private static ?Database $instance = null;
+    private PDO $pdo;
+    private string $host = 'mysql';
+    private string $dbname = 'database';
+    private string $username = 'user';
+    private string $password = 'paris';
 
-    public function connect()
+    private function __construct()
     {
-        $conn = null;
+        $dsn = "mysql:host={$this->host};dbname={$this->dbname}";
+        $this->pdo = new PDO($dsn, $this->username, $this->password);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
 
-        try {
-            $conn = new PDO($this->dsn, $this->username, $this->password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo 'Connection Error: ' . $e->getMessage();
+    public static function getInstance(): ?Database
+    {
+        if (self::$instance == null) {
+            self::$instance = new self();
         }
+        return self::$instance;
+    }
 
-        return $conn;
+    public function getConnection(): PDO
+    {
+        return $this->pdo;
     }
 }
-

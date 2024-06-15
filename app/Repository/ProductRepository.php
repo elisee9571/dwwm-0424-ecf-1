@@ -2,24 +2,29 @@
 
 namespace Repository;
 
+use Model\Database;
 use Model\Product;
 use PDO;
 
+include_once __DIR__ . '/../Model/Product.php';
+include_once __DIR__ . '/../Model/Database.php';
+
 class ProductRepository
 {
-    private $conn;
-    private $table_name = 'products';
+    private ?Database $instance;
+    private ?PDO $pdo;
 
-    public function __construct($db)
+    public function __construct()
     {
-        $this->conn = $db;
+        $this->instance = Database::getInstance();
+        $this->pdo = $this->instance->getConnection();
     }
 
     function findAll(): array
     {
-        $query = 'SELECT * FROM ' . $this->table_name;
+        $query = 'SELECT * FROM products';
 
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->pdo->prepare($query);
 
         $stmt->execute();
 

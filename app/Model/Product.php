@@ -4,11 +4,11 @@ namespace Model;
 
 class Product
 {
-    private $id;
-    private $name;
-    private $price;
+    private int $id;
+    private string $name;
+    private string $price;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -19,7 +19,7 @@ class Product
         return $this;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -30,13 +30,14 @@ class Product
         return $this;
     }
 
-    public function getPrice()
+    public function getPrice(): string
     {
         return $this->price;
     }
 
-    public function setPrice($price)
+    public function setPrice($price): Product
     {
         $this->price = $price;
+        return $this;
     }
 }
