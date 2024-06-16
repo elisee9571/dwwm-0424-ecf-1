@@ -2,12 +2,13 @@
 
 namespace Controller;
 
+use Framework\AbstractController;
 use Repository\ProductRepository;
 
 include_once __DIR__ . '/../vendor/Framework/AbstractController.php';
 include_once __DIR__ . '/../Repository/ProductRepository.php';
 
-class CartController extends \AbstractController
+class CartController extends AbstractController
 {
     public function cart(): string
     {
@@ -38,13 +39,13 @@ class CartController extends \AbstractController
         ]);
     }
 
-    public function addItemToCart(): string
+    public function addItemToCart($request): string
     {
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
 
-        $product_id = $_POST['product_id'];
+        $product_id = $request['product_id'];
 
         if (isset($_SESSION['cart'][$product_id])) {
             $_SESSION['cart'][$product_id]++;
@@ -56,10 +57,10 @@ class CartController extends \AbstractController
         exit();
     }
 
-    public function removeItemToCart(): void
+    public function removeItemToCart($request): void
     {
-        if (isset($_POST['productId'])) {
-            $product_id = $_POST['productId'];
+        if (isset($request['productId'])) {
+            $product_id = $request['productId'];
 
             if (isset($_SESSION['cart'][$product_id])) {
                 unset($_SESSION['cart'][$product_id]);
@@ -73,11 +74,11 @@ class CartController extends \AbstractController
         }
     }
 
-    public function updateItemToCart(): void
+    public function updateItemToCart($request): void
     {
-        if (isset($_POST['productId']) && isset($_POST['quantity'])) {
-            $product_id = $_POST['productId'];
-            $quantity = $_POST['quantity'];
+        if (isset($request['productId']) && isset($request['quantity'])) {
+            $product_id = $request['productId'];
+            $quantity = $request['quantity'];
 
             $quantity = max(0, intval($quantity));
 

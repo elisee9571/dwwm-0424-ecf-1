@@ -1,5 +1,9 @@
 <?php
 
+namespace Framework;
+
+use Templating\Compiler;
+
 include_once __DIR__ . '/../Templating/Compiler.php';
 
 abstract class AbstractController

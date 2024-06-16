@@ -3,7 +3,6 @@
 namespace Repository;
 
 use Model\Database;
-use Model\Product;
 use PDO;
 
 include_once __DIR__ . '/../Model/Product.php';

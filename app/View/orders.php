@@ -60,8 +60,12 @@
                                                 <span class="text-dark-emphasis fw-medium"><?= $product['quantity'] ?></span>
                                             </li>
                                             <li>
-                                                <span class="text-body-secondary">Price:</span>
+                                                <span class="text-body-secondary">Unit price:</span>
                                                 <span class="text-dark-emphasis fw-medium"><?= $product['item_price'] ?>€</span>
+                                            </li>
+                                            <li>
+                                                <span class="text-body-secondary">Total:</span>
+                                                <span class="text-dark-emphasis fw-medium"><?= $product['item_price'] * $product['quantity'] ?>€</span>
                                             </li>
                                         </ul>
                                     </div>

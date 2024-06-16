@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Framework\AbstractController;
 use Model\User;
 use Service\UserService;
 
@@ -9,7 +10,7 @@ include_once __DIR__ . '/../vendor/Framework/AbstractController.php';
 include_once __DIR__ . '/../Model/User.php';
 include_once __DIR__ . '/../Service/UserService.php';
 
-class UserController extends \AbstractController
+class UserController extends AbstractController
 {
     private UserService $userService;
 

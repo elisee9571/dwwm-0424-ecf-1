@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Framework\AbstractController;
 use Repository\OrderRepository;
 use Service\OrderService;
 
@@ -9,7 +10,7 @@ include_once __DIR__ . '/../vendor/Framework/AbstractController.php';
 include_once __DIR__ . '/../Service/OrderService.php';
 include_once __DIR__ . '/../Repository/OrderRepository.php';
 
-class OrderController extends \AbstractController
+class OrderController extends AbstractController
 {
     private OrderService $orderService;
 

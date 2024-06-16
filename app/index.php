@@ -1,7 +1,10 @@
 <?php
-session_start();
 
-include_once 'vendor/Router/Router.php';
+use Router\Router;
+
+include_once __DIR__ . '/vendor/Router/Router.php';
+
+session_start();
 
 $routes = [
     '/' => 'Controller\AppController::home',
@@ -26,8 +29,7 @@ $method = $action[1];
 
 include_once __DIR__ . '/' . str_replace('\\', '/', $controller) . '.php';
 
-
-/* @info : contrôle les données venant du front (($_GET, $_POST, $_COOKIE) mais pas le $_FILE) et nous premunis des failles XSS  */
+/* @info : contrôle les données venant du front (($_GET, $_POST, $_COOKIE) mais pas le $_FILE) et nous premunis des failles XSS */
 $request = [];
 foreach ($_REQUEST as $property => $value) {
     $request[htmlspecialchars(strip_tags(trim($property)))] = htmlspecialchars(strip_tags(trim($value)));

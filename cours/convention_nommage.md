@@ -30,7 +30,7 @@ envergure où plusieurs développeurs travaillent simultanément.
 
 ### Exemples de conventions de nommage :
 
-*CamelCase* vs. *snake_case* :
+*camelCase* vs. *snake_case*:
 
 - Utilisation de majuscules pour séparer les mots (*CamelCase*) ou d'underscores (*snake_case*) pour les noms de
   variables et de fonctions.
