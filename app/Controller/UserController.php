@@ -18,14 +18,9 @@ class UserController extends \AbstractController
         $this->userService = new UserService();
     }
 
-    public function register(): string
+    public function register($request): string
     {
         $user = new User();
-        $request = [];
-
-        foreach ($_REQUEST as $property => $value) {
-            $request[htmlspecialchars(strip_tags(trim($property)))] = htmlspecialchars(strip_tags(trim($value)));
-        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user->setEmail($request['email']);
@@ -44,14 +39,9 @@ class UserController extends \AbstractController
         return $this->render('register');
     }
 
-    public function login(): string
+    public function login($request): string
     {
         $user = new User();
-        $request = [];
-
-        foreach ($_REQUEST as $property => $value) {
-            $request[htmlspecialchars(strip_tags(trim($property)))] = htmlspecialchars(strip_tags(trim($value)));
-        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user->setEmail($request['email']);

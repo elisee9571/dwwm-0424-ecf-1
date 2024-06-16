@@ -46,7 +46,7 @@ class OrderRepository
 
         $stmt = $this->pdo->prepare($query);
         $userId = $_SESSION['user']['id'];
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

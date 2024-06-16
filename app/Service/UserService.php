@@ -61,8 +61,12 @@ class UserService
             $logger = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($logger && password_verify($user->getPassword(), $logger['password'])) {
-                /* @info fail of security but password in session */
-                $_SESSION['user'] = $logger;
+                $userInSession = [
+                    'id' => $logger['id'],
+                    'email' => $logger['email']
+                ];
+
+                $_SESSION['user'] = $userInSession;
                 return true;
             }
 

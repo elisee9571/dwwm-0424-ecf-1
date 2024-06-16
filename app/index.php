@@ -26,7 +26,14 @@ $method = $action[1];
 
 include_once __DIR__ . '/' . str_replace('\\', '/', $controller) . '.php';
 
+
+/* @info : contrôle les données venant du front (($_GET, $_POST, $_COOKIE) mais pas le $_FILE) et nous premunis des failles XSS  */
+$request = [];
+foreach ($_REQUEST as $property => $value) {
+    $request[htmlspecialchars(strip_tags(trim($property)))] = htmlspecialchars(strip_tags(trim($value)));
+}
+
 $controller = new $controller;
-$response = $controller->$method();
+$response = $controller->$method($request);
 
 echo $response;

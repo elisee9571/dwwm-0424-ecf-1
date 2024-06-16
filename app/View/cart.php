@@ -8,50 +8,6 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <script defer>
-        $(document).ready(function () {
-            $('[data-action="increment"]').on('click', function () {
-                var productId = $(this).data('product-id');
-                var inputQuantity = $(this).siblings('input[type="number"]');
-                var currentQuantity = parseInt(inputQuantity.val());
-                inputQuantity.val(currentQuantity + 1);
-
-                // Envoyer la mise à jour de la quantité au serveur via AJAX si nécessaire
-                updateCart(productId, currentQuantity + 1);
-            });
-
-            $('[data-action="decrement"]').on('click', function () {
-                var productId = $(this).data('product-id');
-                var inputQuantity = $(this).siblings('input[type="number"]');
-                var currentQuantity = parseInt(inputQuantity.val());
-                if (currentQuantity > 1) {
-                    inputQuantity.val(currentQuantity - 1);
-
-                    // Envoyer la mise à jour de la quantité au serveur via AJAX si nécessaire
-                    updateCart(productId, currentQuantity - 1);
-                }
-            });
-
-            function updateCart(productId, newQuantity) {
-                // Exemple d'AJAX pour envoyer la mise à jour de la quantité au serveur
-                $.post('/update-item-to-cart', {'productId': productId, 'quantity': newQuantity})
-                    .done(response => window.location.reload())
-                    .fail(error => console.error('Erreur lors de la mise à jour du panier:', error))
-            }
-
-            $('.remove-item-btn').on('click', function () {
-                var productId = $(this).data('product-id');
-
-                // Envoyer la demande de suppression au serveur via AJAX
-                $.post('/remove-item-to-cart', {'productId': productId})
-                    .done(response => window.location.reload())
-                    .fail(error => console.error('Erreur lors de la mise à jour du panier:', error))
-            });
-        });
-    </script>
 </head>
 <body>
 <?php require('component/_header.php') ?>
@@ -215,5 +171,47 @@
         </div>
     </section>
 </main>
+
+<script>
+    $(document).ready(function () {
+        $('[data-action="increment"]').on('click', function () {
+            var productId = $(this).data('product-id');
+            var inputQuantity = $(this).siblings('input[type="number"]');
+            var currentQuantity = parseInt(inputQuantity.val());
+            inputQuantity.val(currentQuantity + 1);
+
+            // Envoyer la mise à jour de la quantité au serveur via AJAX si nécessaire
+            updateCart(productId, currentQuantity + 1);
+        });
+
+        $('[data-action="decrement"]').on('click', function () {
+            var productId = $(this).data('product-id');
+            var inputQuantity = $(this).siblings('input[type="number"]');
+            var currentQuantity = parseInt(inputQuantity.val());
+            if (currentQuantity > 1) {
+                inputQuantity.val(currentQuantity - 1);
+
+                // Envoyer la mise à jour de la quantité au serveur via AJAX si nécessaire
+                updateCart(productId, currentQuantity - 1);
+            }
+        });
+
+        function updateCart(productId, newQuantity) {
+            // Exemple d'AJAX pour envoyer la mise à jour de la quantité au serveur
+            $.post('/update-item-to-cart', {'productId': productId, 'quantity': newQuantity})
+                .done(response => window.location.reload())
+                .fail(error => console.error('Erreur lors de la mise à jour du panier:', error))
+        }
+
+        $('.remove-item-btn').on('click', function () {
+            var productId = $(this).data('product-id');
+
+            // Envoyer la demande de suppression au serveur via AJAX
+            $.post('/remove-item-to-cart', {'productId': productId})
+                .done(response => window.location.reload())
+                .fail(error => console.error('Erreur lors de la mise à jour du panier:', error))
+        });
+    });
+</script>
 </body>
 </html>
