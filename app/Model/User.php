@@ -2,39 +2,26 @@
 
 namespace Model;
 
-class User
+use vendor\UserBundle\AbstractUser;
+
+include_once __DIR__ . '/../vendor/UserBundle/AbstractUser.php';
+include_once __DIR__ . '/Database.php';
+
+class User extends AbstractUser
 {
     private int $id;
-    private string $email;
     private string $firstname;
     private string $lastname;
-    private string $password;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId($id): User
+    public function setId($id): self
     {
         $this->id = $id;
         return $this;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function setEmail($email): User
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getFullName(): string
-    {
-        return $this->lastname . ' ' . $this->firstname;
     }
 
     public function getFirstname(): string
@@ -42,7 +29,7 @@ class User
         return $this->firstname;
     }
 
-    public function setFirstname($firstname): User
+    public function setFirstname($firstname): self
     {
         $this->firstname = $firstname;
         return $this;
@@ -53,20 +40,43 @@ class User
         return $this->lastname;
     }
 
-    public function setLastname($lastname): User
+    public function setLastname($lastname): self
     {
         $this->lastname = $lastname;
         return $this;
     }
 
-    public function getPassword(): string
+    public function login()
     {
-        return $this->password;
+        // TODO: Implement login() method.
     }
 
-    public function setPassword($password): User
+    public function register()
     {
-        $this->password = $password;
-        return $this;
+        try {
+            $instance = Database::getInstance();
+            $pdo = $instance->getConnection();
+            $query = 'INSERT INTO users (email, firstname, lastname, password) VALUES (:email, :firstname, :lastname, :password)';
+
+            $stmt = $pdo->prepare($query);
+
+            $email = $this->getEmail();
+            $firstname = $this->getFirstname();
+            $lastname = $this->getLastname();
+            $password = password_hash($this->getPassword(), PASSWORD_DEFAULT);
+
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':firstname', $firstname);
+            $stmt->bindParam(':lastname', $lastname);
+            $stmt->bindParam(':password', $password);
+
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            return false;
+        } catch (\PDOException $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

@@ -19,17 +19,16 @@ class UserController extends AbstractController
         $this->userService = new UserService();
     }
 
-    public function register($request): string
+    public function register($request)
     {
-        $user = new User();
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $user->setEmail($request['email']);
-            $user->setLastname($request['lastname']);
-            $user->setFirstname($request['firstname']);
-            $user->setPassword($request['password']);
+            $user = new User();
+            $user->setEmail($request['email'])
+                ->setLastname($request['lastname'])
+                ->setFirstname($request['firstname'])
+                ->setPassword($request['password']);
 
-            if ($this->userService->register($user)) {
+            if ($user->register()) {
                 header('Location: /login');
                 exit;
             } else {

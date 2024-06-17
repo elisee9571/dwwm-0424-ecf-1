@@ -2,7 +2,7 @@
 
 namespace Router;
 
-final readonly class Router
+class Router
 {
     public function getAction(string $routeAction): array
     {

@@ -1,23 +1,17 @@
 <?php
 
+session_start();
+
 use Router\Router;
 
 include_once __DIR__ . '/vendor/Router/Router.php';
 
-session_start();
 
 $routes = [
     '/' => 'Controller\AppController::home',
     '/login' => 'Controller\UserController::login',
     '/register' => 'Controller\UserController::register',
     '/logout' => 'Controller\UserController::logout',
-    '/cart' => 'Controller\CartController::cart',
-    '/add-item-to-cart' => 'Controller\CartController::addItemToCart',
-    '/remove-item-to-cart' => 'Controller\CartController::removeItemToCart',
-    '/update-item-to-cart' => 'Controller\CartController::updateItemToCart',
-    '/order' => 'Controller\OrderController::order',
-    '/orders' => 'Controller\OrderController::orders',
-    '/order/success' => 'Controller\OrderController::success',
 ];
 
 $router = new Router;

@@ -8,10 +8,10 @@ class Database
 {
     private static ?Database $instance = null;
     private PDO $pdo;
-    private string $host = 'mysql';
-    private string $dbname = 'database';
-    private string $username = 'user';
-    private string $password = 'paris';
+    private string $host = 'mysql'; // localhost
+    private string $dbname = 'database'; // database name
+    private string $username = 'user'; // username
+    private string $password = 'paris'; // password
 
     private function __construct()
     {
